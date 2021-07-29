@@ -14,6 +14,11 @@ public class AccesoDatos extends FileProcessor {
         super(fileName);
     }
 
+    public AccesoDatos() {
+
+    }
+
+
     @Override
     protected ArrayList<Persona> readLines(Scanner reader) {
         ArrayList<Persona> result = new ArrayList<Persona>();

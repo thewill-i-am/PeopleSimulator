@@ -14,6 +14,9 @@ public abstract class FileProcessor {
         this.fileName = fileName;
     }
 
+    protected FileProcessor() {
+    }
+
     public ArrayList<Persona> processFile() throws FileNotFoundException {
         Scanner reader = openFile();
         ArrayList<Persona> result = readLines(reader);
