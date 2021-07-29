@@ -1,35 +1,11 @@
 package main;
 
-
 import main.entities.Persona;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-
-public abstract class FileProcessor {
-    protected String fileName;
-
-    public FileProcessor(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public ArrayList<String> processFile() throws FileNotFoundException {
-        Scanner reader = openFile();
-        ArrayList<String> result = readLines(reader);
-        reader.close();
-        return result;
-    }
-
-    protected Scanner openFile() throws FileNotFoundException {
-        return new Scanner(new File(fileName));
-    }
-
-    protected abstract List readLines(Scanner reader);
-}
 
 public class AccesoDatos extends FileProcessor {
 
@@ -38,17 +14,16 @@ public class AccesoDatos extends FileProcessor {
     }
 
     @Override
-    protected ArrayList<String> readLines(Scanner reader) {
-        ArrayList<String> result = new ArrayList<String>();
+    protected ArrayList<Persona> readLines(Scanner reader) {
+        ArrayList<Persona> result = new ArrayList<Persona>();
         boolean skip = true;
         int i = 0;
         while (reader.hasNextLine()) {
             i++;
-            String producto = reader.nextLine();
+            String persona = reader.nextLine();
             if (!skip) {
-                Producto currentProducto = getProductDataFromString(producto, i);
-                Nodo nuevoNodo = new Nodo(currentProducto);
-                result.agregar(nuevoNodo);
+                Persona currentPersona = getPersonDataFromString(persona);
+                result.add(currentPersona);
             } else {
                 skip = false;
             }
@@ -56,15 +31,28 @@ public class AccesoDatos extends FileProcessor {
         return result;
     }
 
-    private Persona getProductDataFromString(String currentData, int index) {
+    private Persona getPersonDataFromString(String currentData) {
         Persona newPersona = new Persona();
         String[] data = currentData.split(",");
-        newPersona.setNombre(data[0]);
 
-        newProducto.setIndex(index);
-        newProducto.setId(data[0]);
-        newProducto.setNombre(data[1]);
-        newProducto.setCategoria(data[2]);
-        return newProducto;
+        newPersona.setNombre(data[0]);
+        newPersona.setEdad(Integer.parseInt(data[1]));
+
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate local = LocalDate.parse(data[2], df);
+        newPersona.setFechaNacimiento(local);
+
+        newPersona.setEstatura(Integer.parseInt(data[3]));
+        newPersona.setPeso(Integer.parseInt(data[4]));
+        newPersona.setNacionalidad(data[5]);
+        newPersona.setClub(data[6]);
+
+        if (data.length > 7){
+            newPersona.setDorsal(Integer.parseInt(data[7]));
+        }else{
+            newPersona.setDorsal(0);
+        }
+
+        return newPersona;
     }
 }
