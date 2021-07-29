@@ -1,4 +1,4 @@
-package main;
+package main.logicadatos;
 
 import main.entities.Persona;
 
@@ -38,7 +38,7 @@ public class AccesoDatos extends FileProcessor {
     }
 
     public void guardarDatos(ArrayList<Persona> personas) throws IOException {
-        FileOutputStream f = new FileOutputStream(new File("src/main/datos/finalOutput.dat"));
+        FileOutputStream f = new FileOutputStream(new File("/home/william/IdeaProjects/Simulation2/src/main/datos/finalOutput.dat"));
         ObjectOutputStream o = new ObjectOutputStream(f);
 
         personas.forEach(x -> {
@@ -54,7 +54,7 @@ public class AccesoDatos extends FileProcessor {
     }
 
     public ArrayList<Persona> leerDatosDat() throws IOException, ClassNotFoundException {
-        FileInputStream fi = new FileInputStream(new File("src/main/datos/finalOutput.dat"));
+        FileInputStream fi = new FileInputStream(new File("/home/william/IdeaProjects/Simulation2/src/main/datos/finalOutput.dat"));
         ObjectInputStream oi = new ObjectInputStream(fi);
         ArrayList<Persona> personas = new ArrayList<Persona>();
         try {

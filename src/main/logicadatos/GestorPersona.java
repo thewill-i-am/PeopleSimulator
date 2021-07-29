@@ -1,6 +1,7 @@
-package main;
+package main.logicadatos;
 
 import main.entities.Persona;
+import main.logicadatos.FileProcessor;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
