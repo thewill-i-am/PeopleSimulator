@@ -35,9 +35,30 @@ public class AccesoDatos extends FileProcessor {
         Persona newPersona = new Persona();
         String[] data = currentData.split(",");
 
-        newPersona.setNombre(data[0]);
-        newPersona.setEdad(Integer.parseInt(data[1]));
+        String fullName = data[0];
 
+        String[] datosNombre = fullName.split(" ");
+
+        switch (datosNombre.length){
+            case 1:
+                newPersona.setNombre(datosNombre[0]);
+                newPersona.setApellido1("No tiene registrado");
+                newPersona.setApellido2("No tiene registrado");
+            break;
+            case 2:
+                newPersona.setNombre(datosNombre[0]);
+                newPersona.setApellido1(datosNombre[1]);
+                newPersona.setApellido2("No tiene registrado");
+                break;
+            default:
+                newPersona.setNombre(datosNombre[0]);
+                newPersona.setApellido1(datosNombre[1]);
+                newPersona.setApellido2(datosNombre[2]);
+                break;
+        }
+
+
+        newPersona.setEdad(Integer.parseInt(data[1]));
         DateTimeFormatter df = DateTimeFormatter.ofPattern("M/d/yyyy");
         LocalDate local = LocalDate.parse(data[2], df);
         newPersona.setFechaNacimiento(local);

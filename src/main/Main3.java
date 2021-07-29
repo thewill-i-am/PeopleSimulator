@@ -40,32 +40,32 @@ public class Main3 {
             case 1:
                 System.out.println("Filtrar por nombre: ");
                 String filtrado = scanner.next();
-                hacerBusqueda(personas, s -> s.getNombre().contains(filtrado) == true);
+                hacerBusqueda(personas, s -> s.getNombre().contains(filtrado));
                 break;
             case 2:
                 System.out.println("Filtrar por edad: ");
                 Integer filtradoEdad= scanner.nextInt();
-                hacerBusqueda(personas,  s -> s.getEdad() == filtradoEdad == true);
+                hacerBusqueda(personas,  s -> s.getEdad() == filtradoEdad);
                 break;
             case 3:
                 System.out.println("Filtrar por peso: ");
                 Integer filtradoPeso= scanner.nextInt();
-                hacerBusqueda(personas,  s -> s.getPeso() == filtradoPeso == true);
+                hacerBusqueda(personas,  s -> s.getPeso() == filtradoPeso);
                 break;
             case 4:
                 System.out.println("Filtrar por estatura: ");
                 Integer filtradoEstatura= scanner.nextInt();
-                hacerBusqueda(personas,  s -> s.getEstatura() == filtradoEstatura == true);
+                hacerBusqueda(personas,  s -> s.getEstatura() == filtradoEstatura);
                 break;
             case 5:
                 System.out.println("Filtrar por país: ");
                 String filtradoPais= scanner.next();
-                hacerBusqueda(personas,  s -> s.getNacionalidad().contains(filtradoPais)  == true);
+                hacerBusqueda(personas,  s -> s.getNacionalidad().contains(filtradoPais));
                 break;
             case 6:
                 System.out.println("Filtrar por dorsal: ");
                 Integer filtradoDorsal= scanner.nextInt();
-                hacerBusqueda(personas, s -> s.getDorsal() == filtradoDorsal  == true);
+                hacerBusqueda(personas, s -> s.getDorsal() == filtradoDorsal);
                 break;
             default:
                 break;

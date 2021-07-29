@@ -139,6 +139,12 @@ public class Persona implements Serializable {
                 ", apellido1='" + apellido1 + '\'' +
                 ", apellido2='" + apellido2 + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
+                ", peso='" + peso + '\'' +
+                ", edad='" + edad + '\'' +
+                ", dorsal='" + dorsal + '\''   +
+                ", club='" + club + '\''   +
+                ", edad='" + edad + '\''   +
+                ", nacionalidad='" + nacionalidad  +
                 '}';
     }
 }
