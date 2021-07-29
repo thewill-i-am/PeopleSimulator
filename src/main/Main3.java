@@ -16,7 +16,7 @@ public class Main3 {
     private static Scanner scanner = new Scanner(System.in);
 
         public static void hacerBusqueda(ArrayList<Persona> personas, Predicate<Persona> predicate) {
-            long start = System.nanoTime();
+            long start = System.currentTimeMillis();
 
             List<Persona> personasFiltradoDorsal = personas.stream()
                     .filter(predicate)
@@ -24,18 +24,29 @@ public class Main3 {
 
             personasFiltradoDorsal.forEach(x -> System.out.println(x.toString()));
 
-            long finish = System.nanoTime();
+            long finish = System.currentTimeMillis();
             long timeElapsed = finish - start;
-            System.out.println("Tiempo de ejecucion: " + timeElapsed);
+            System.out.println("Tiempo de ejecucion: " + timeElapsed + " mili segundos");
         }
 
-        public static void main(String[] args) throws FileNotFoundException {
+        public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        AccesoDatos accesoDatos = new AccesoDatos("/home/william/IdeaProjects/Simulation2/src/main/datos/players_15.csv");
+        AccesoDatos accesoDatos = new AccesoDatos("src/main/datos/players_15.csv");
         ArrayList<Persona> personas =  accesoDatos.processFile();
+        accesoDatos.guardarDatos(personas);
+        personas = accesoDatos.leerDatosDat();
 
-        System.out.println("Por favor elija opcion: ");
+
+        System.out.println("Por favor elija opcion para realizar el filtrado: \n" +
+                "1 -> Nombre \n" +
+                "2 -> Edad \n" +
+                "3 -> Peso \n" +
+                "4 -> Estatura \n" +
+                "5 -> Pais \n" +
+                "6 -> Dorsal");
+
         int opcion = scanner.nextInt();
+
         switch (opcion){
             case 1:
                 System.out.println("Filtrar por nombre: ");

@@ -16,7 +16,7 @@ public class Main {
                 ,"Wanda", LocalDate.parse("1991-11-11"));
 
         try {
-            FileOutputStream f = new FileOutputStream(new File("c:\\dev\\java\\misObjetos.dat"));
+            FileOutputStream f = new FileOutputStream(new File("/home/william/IdeaProjects/Simulation2/src/main/datos/misObjetos.dat"));
             ObjectOutputStream o = new ObjectOutputStream(f);
 
             // Write objects to file
@@ -26,7 +26,7 @@ public class Main {
             o.close();
             f.close();
 
-            FileInputStream fi = new FileInputStream(new File("c:\\dev\\java\\misObjetos.dat"));
+            FileInputStream fi = new FileInputStream(new File("/home/william/IdeaProjects/Simulation2/src/main/datos/misObjetos.dat"));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             // Read objects
