@@ -6,9 +6,14 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AccesoDatos extends FileProcessor {
+    private HashMap<Integer, ArrayList<Integer>> _hashMapTableEdad = new HashMap();
+    private HashMap<Integer, ArrayList<Integer>> _hashMapTableEstatura = new HashMap();
+    private HashMap<Integer, ArrayList<Integer>> _hashMapTablePeso = new HashMap();
+    private HashMap<String, ArrayList<Integer>>  _hashMapTablePais = new HashMap();
 
     public AccesoDatos(String fileName) {
         super(fileName);
@@ -17,7 +22,6 @@ public class AccesoDatos extends FileProcessor {
     public AccesoDatos() {
 
     }
-
 
     @Override
     protected ArrayList<Persona> readLines(Scanner reader) {
@@ -29,6 +33,7 @@ public class AccesoDatos extends FileProcessor {
             String persona = reader.nextLine();
             if (!skip) {
                 Persona currentPersona = getPersonDataFromString(persona, i);
+                getPersonDataFromStringInHashTable(persona, i);
                 result.add(currentPersona);
             } else {
                 skip = false;
@@ -126,4 +131,43 @@ public class AccesoDatos extends FileProcessor {
 
         return newPersona;
     }
+
+    private Persona getPersonDataFromStringInHashTable(String currentData, int i) {
+        String[] data = currentData.split(",");
+
+        if (!_hashMapTableEdad.containsKey(Integer.parseInt(data[1]))){
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            arrayList.add(i);
+            _hashMapTableEdad.put(Integer.parseInt(data[1]), arrayList);
+        }else{
+            _hashMapTableEdad.get(Integer.parseInt(data[1])).add(i);
+        }
+
+        if (!_hashMapTableEstatura.containsKey(Integer.parseInt(data[3]))){
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            arrayList.add(i);
+            _hashMapTableEstatura.put(Integer.parseInt(data[3]), arrayList);
+        }else{
+            _hashMapTableEstatura.get(Integer.parseInt(data[3])).add(i);
+        }
+
+        if (!_hashMapTablePeso.containsKey(Integer.parseInt(data[4]))){
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            arrayList.add(i);
+            _hashMapTablePeso.put(Integer.parseInt(data[4]), arrayList);
+        }else{
+            _hashMapTablePeso.get(Integer.parseInt(data[4])).add(i);
+        }
+
+        if (!_hashMapTablePais.containsKey(data[5])){
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            arrayList.add(i);
+            _hashMapTablePais.put(data[5], arrayList);
+        }else{
+            _hashMapTablePais.get(data[5]).add(i);
+        }
+
+        return new Persona();
+    }
+
 }
