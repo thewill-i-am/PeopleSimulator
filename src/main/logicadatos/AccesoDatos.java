@@ -24,7 +24,7 @@ public class AccesoDatos extends FileProcessor {
     }
 
     @Override
-    protected ArrayList<Persona> readLines(Scanner reader) {
+    protected ArrayList<Persona> readLines(Scanner reader) throws IOException {
         ArrayList<Persona> result = new ArrayList<Persona>();
         boolean skip = true;
         int i = 0;
@@ -39,8 +39,22 @@ public class AccesoDatos extends FileProcessor {
                 skip = false;
             }
         }
+        this.guardarIndices(_hashMapTableEstatura, "estatura");
+        this.guardarIndices(_hashMapTableEdad, "edad");
+        this.guardarIndices(_hashMapTablePeso, "peso");
+        this.guardarIndices(_hashMapTablePais, "pais");
+
         return result;
     }
+
+    private void guardarIndices(HashMap indices, String name) throws IOException {
+        FileOutputStream f = new FileOutputStream(new File("/home/william/IdeaProjects/Simulation2/src/main/datos/"+name+".idx"));
+        ObjectOutputStream o = new ObjectOutputStream(f);
+        o.writeObject(indices);
+        o.close();
+        f.close();
+    }
+
 
     public void guardarDatos(ArrayList<Persona> personas) throws IOException {
         FileOutputStream f = new FileOutputStream(new File("/home/william/IdeaProjects/Simulation2/src/main/datos/finalOutput.dat"));
@@ -74,6 +88,21 @@ public class AccesoDatos extends FileProcessor {
         oi.close();
         fi.close();
         return personas;
+    }
+
+    public HashMap leerDatosInx(String name) throws IOException, ClassNotFoundException {
+        FileInputStream fi = new FileInputStream(new File("/home/william/IdeaProjects/Simulation2/src/main/datos/"+name+".idx"));
+        ObjectInputStream oi = new ObjectInputStream(fi);
+        HashMap hashMap  = new HashMap();
+        try {
+            hashMap = (HashMap) oi.readObject();
+        }catch (Exception e){
+            oi.close();
+            fi.close();
+        }
+        oi.close();
+        fi.close();
+        return hashMap;
     }
 
 
@@ -132,7 +161,7 @@ public class AccesoDatos extends FileProcessor {
         return newPersona;
     }
 
-    private Persona getPersonDataFromStringInHashTable(String currentData, int i) {
+    private void getPersonDataFromStringInHashTable(String currentData, int i) {
         String[] data = currentData.split(",");
 
         if (!_hashMapTableEdad.containsKey(Integer.parseInt(data[1]))){
@@ -167,7 +196,6 @@ public class AccesoDatos extends FileProcessor {
             _hashMapTablePais.get(data[5]).add(i);
         }
 
-        return new Persona();
     }
 
 }

@@ -4,6 +4,7 @@ import main.entities.Persona;
 import main.logicadatos.FileProcessor;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GestorPersona {
@@ -13,7 +14,7 @@ public class GestorPersona {
     public GestorPersona(FileProcessor oneProcessor) {
         this.processor = oneProcessor;
     }
-    public void cargarLista() throws FileNotFoundException {
+    public void cargarLista() throws IOException {
         if (this.persona.isEmpty()){
             this.persona = this.processor.processFile();
             System.out.println("Lista Cargada");
